@@ -16,13 +16,12 @@ class GameState
     {
         return $this->maskedWord;
     }
-    private function setMaskedWord(string $word): string
+    private function setMaskedWord(string $word): array
     {
         $letters = str_split($word);
-        foreach($letters as $letter) {
+        foreach ($letters as $letter) {
             $maskedWord[] = '_';
         }
-        $maskedWord = implode(' ', $maskedWord);
         return $maskedWord;
     }
 }
