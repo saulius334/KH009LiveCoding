@@ -8,5 +8,5 @@ use KH009\Game\GameState;
 
 interface PlayerInterface
 {
-    public function guessLetter(GameState $state): string;
+    public function __invoke(GameState $state): string;
 }

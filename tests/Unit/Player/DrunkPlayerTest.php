@@ -14,7 +14,7 @@ class DrunkPlayerTest extends TestCase
     {
         $state = $this->createMock(GameState::class);
         $drunkPlayer = new DrunkPlayer();
-        $letter = $drunkPlayer->guessLetter($state);
+        $letter = $drunkPlayer($state);
         $this->assertIsString($letter);
         $this->assertSame(strlen($letter), 1);
     }
@@ -23,8 +23,8 @@ class DrunkPlayerTest extends TestCase
         $state = $this->createMock(GameState::class);
         $drunkPlayer = new DrunkPlayer();
 
-        $letter = $drunkPlayer->guessLetter($state);
-        $letter2 = $drunkPlayer->guessLetter($state);
+        $letter = $drunkPlayer($state);
+        $letter2 = $drunkPlayer($state);
 
         $this->assertNotEquals($letter, $letter2);
     }

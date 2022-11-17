@@ -7,10 +7,11 @@ namespace KH009\Game;
 use KH009\Game\GameState;
 use KH009\Player\PlayerInterface;
 
-class LuckyDrawGame
+class LuckyDrawGame implements GameInterface
 {
     private array $players = [];
-    private ?GameState $state = null;
+    private GameState $state;
+    private ?string $winner = null;
 
     public function __construct(GameState $state = null)
     {
@@ -19,18 +20,27 @@ class LuckyDrawGame
         $secret = $words[0];
         $this->state = $state ?? GameState::fromWord($secret);
     }
-    public function addPlayer(PlayerInterface $player)
+    public function addPlayer(PlayerInterface|callable $player, $nickname)
     {
-        $this->players[] = $player;
+        $this->players[$nickname] = $player;
     }
     public function makeTurn()
     {
-        foreach ($this->players as $player) {
-            
+        foreach ($this->players as $nickname => $player) {
+            $this->state->addLetter($player($this->state));
+            if ($this->state->isFinished()) {
+                $this->winner = $nickname;
+                break;
+            }
         }
+        return $this->state;
     }
     public function isFinished(): bool
     {
-        return $this->state->getMaskedWord() === $this->state->getSecret();
+        return $this->state->isFinished();
+    }
+    public function getWinner()
+    {
+        return $this->winner;
     }
 }

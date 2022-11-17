@@ -15,12 +15,26 @@ class GameState
         $secret = str_split($word);
         return new self($secret, array_fill(0, count($secret), self::MASKED_SYMBOL));
     }
-    public function getMaskedWord()
+    public function getMaskedWord(): array
     {
         return $this->maskedWord;
     }
-    public function getSecret()
+    private function getSecret(): array
     {
         return $this->secret;
+    }
+    public function isFinished(): bool
+    {
+        return $this->getMaskedWord() === $this->getSecret();
+    }
+    public function addLetter(string $letter)
+    {
+        $i = 0;
+        foreach ($this->secret as $secretLetter) {
+            if ($secretLetter === $letter) {
+                $this->maskedWord[$i] = $letter;
+            }
+            $i++;
+        }
     }
 }

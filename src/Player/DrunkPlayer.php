@@ -9,7 +9,7 @@ use KH009\Player\PlayerInterface;
 
 class DrunkPlayer implements PlayerInterface
 {
-    public function guessLetter(GameState $state): string
+    public function __invoke(GameState $state): string
     {
         static $previousLetter;
 
