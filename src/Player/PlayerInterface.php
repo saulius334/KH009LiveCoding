@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace KH009\Interfaces;
+namespace KH009\Player;
 
-use KH009\Services\GameState;
+use KH009\Game\GameState;
 
 interface PlayerInterface
 {
