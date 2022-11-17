@@ -6,16 +6,21 @@ namespace KH009\Game;
 
 class GameState
 {
-
-    public function __construct(private array $secret, private array $maskedWord)
+    private const MASKED_SYMBOL = '_';
+    public function __construct(private array $secret, private array $maskedWord = [])
     {
     }
-
+    public static function fromWord(string $word)
+    {
+        $secret = str_split($word);
+        return new self($secret, array_fill(0, count($secret), self::MASKED_SYMBOL));
+    }
     public function getMaskedWord()
     {
-
+        return $this->maskedWord;
     }
-    private function setMaskedWord()
+    public function getSecret()
     {
+        return $this->secret;
     }
 }
